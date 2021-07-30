@@ -1,36 +1,26 @@
-import React, { useEffect, useState } from 'react';
-import './index.css'
+import React from 'react';
+import { BrowserRouter as Router, Route,Switch} from 'react-router-dom'
+import {Home ,Dashboard,Login,SignUp} from './components'
+import { AuthProvider }from './components/Auth'
 
 
-// interface ModeColor {
-//   Toggle: boolean
-// }
+
 
 function App() {
 
-  const [color, setColor] = useState(true)
-
-  const changeModeColor = () => {
-    setColor(!color)
-  }
-
-  useEffect(() => {
-    console.log(color)
-  }, [color])
-
+  
 
   return (
-    <>
-    {color ? (<div className="w-mode">
-      <div className="h1"> Hello world</div>
-      <button type="button" onClick={changeModeColor}>Dark Mode</button>
-    </div>) : (<div className="d-mode">
-      <div className="h1"> Hello world</div>
-      <button type="button" onClick={changeModeColor}>Dark Mode</button>
-    </div>)
-    }
-
-    </>
+    <AuthProvider>
+      <Router>
+        <Switch>
+          <Route exact path="/" component = {Home}></Route>
+          <Route exact path="/dashboard" component = {Dashboard}></Route>
+          <Route exact path="/login" component = {Login}></Route>
+          <Route exact path="/signup" component = {SignUp}></Route>
+        </Switch>
+      </Router>
+    </AuthProvider>
   );
 }
 
